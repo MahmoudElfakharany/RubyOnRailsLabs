@@ -1,0 +1,6 @@
+<h1>Track Details</h1>
+<p><strong>Name:</strong> <%= @track.name %></p>
+<p><strong>Description:</strong> <%= @track.description %></p>
+<br>
+<%= link_to 'Edit', edit_track_path(@track) %> |
+<%= link_to 'Back', tracks_path %>

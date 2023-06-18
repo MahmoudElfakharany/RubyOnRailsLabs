@@ -1,0 +1,35 @@
+<h1>New Student</h1>
+<%= form_with(model: @student, url: students_path) do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+    <% if @student.errors.has_key?(:name) %>
+      <div class="error">
+        <%= @student.errors[:name].first %>
+      </div>
+    <% end %>
+  </div>
+  <div>
+    <%= form.label :age %>
+    <%= form.number_field :age %>
+    <% if @student.errors.has_key?(:age) %>
+      <div class="error">
+        <%= @student.errors[:age].first %>
+      </div>
+    <% end %>
+  </div>
+  <div>
+    <%= form.label :track_id %>
+    <%= form.collection_select :track_id, Track.all, :id, :name %>
+    <% if @student.errors.has_key?(:track_id) %>
+      <div class="error">
+        <%= @student.errors[:track_id].first %>
+      </div>
+    <% end %>
+  </div>
+  <div>
+    <%= form.submit 'Create Student' %>
+  </div>
+<% end %>
+<br>
+<%= link_to 'Back', students_path %>

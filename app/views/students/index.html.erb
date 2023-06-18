@@ -1,0 +1,28 @@
+<h1>All Students</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Track</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.name %></td>
+        <td><%= student.age %></td>
+        <td><%= student.track.name %></td>
+        <td><%= link_to 'Show', student %></td>
+        <% if current_user.admin? %>
+          <td><%= link_to 'Edit', edit_student_path(student) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<% if current_user.admin? %>
+  <%= link_to 'New Student', new_student_path %>
+<% end %>

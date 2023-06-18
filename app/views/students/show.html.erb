@@ -1,0 +1,7 @@
+<h1>Student Details</h1>
+<p><strong>Name:</strong> <%= @student.name %></p>
+<p><strong>Age:</strong> <%= @student.age %></p>
+<p><strong>Track:</strong> <%= @student.track.name %></p>
+<br>
+<%= link_to 'Edit', edit_student_path(@student) %> |
+<%= link_to 'Back', students_path %>

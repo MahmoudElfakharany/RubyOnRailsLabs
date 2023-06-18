@@ -1,0 +1,39 @@
+<h1>New Track</h1>
+<%= form_with(model: @track, url: tracks_path) do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+    <% if @track.errors.has_key?(:name) %>
+      <div class="error">
+        <%= @track.errors[:name].first %>
+      </div>
+    <% end %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+    <% if @track.errors.has_key?(:description) %>
+      <div class="error">
+        <%= @track.errors[:description].first %>
+      </div>
+    <% end %>
+  </div>
+  <% if current_user.admin? %>
+    <div>
+      <%= form.label :student_ids, "Students" %>
+      <%= form.collection_check_boxes :student_ids, Student.all, :id, :name %>
+    </div>
+  <% else %>
+    <% if current_user.track.students.any? %>
+      <div>
+        <%= form.label :student_ids, "Students" %>
+        <%= form.collection_check_boxes :student_ids, current_user.track.students, :id, :name %>
+      </div>
+    <% end %>
+  <% end %>
+  <div>
+    <%= form.submit 'Create Track' %>
+  </div>
+<% end %>
+<br>
+<%= link_to 'Back', tracks_path %>

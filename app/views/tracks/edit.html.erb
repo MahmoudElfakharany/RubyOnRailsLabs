@@ -1,0 +1,24 @@
+<h1>Edit Track</h1>
+<%= form_with(model: @track, url: track_path(@track), method: :patch) do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+  <div>
+    <%= form.label :student_ids, "Students" %>
+    <% if current_user.admin? %>
+      <%= form.collection_check_boxes :student_ids, Student.all, :id, :name %>
+    <% else %>
+      <%= form.collection_check_boxes :student_ids, current_user.track.students, :id, :name %>
+    <% end %>
+  </div>
+  <div>
+    <%= form.submit 'Update Track' %>
+  </div>
+<% end %>
+<br>
+<%= link_to 'Back', tracks_path %>

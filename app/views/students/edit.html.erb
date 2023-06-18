@@ -1,0 +1,24 @@
+<h1>Edit Student</h1>
+<%= form_with(model: @student, url: student_path(@student), method: :patch) do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :age %>
+    <%= form.number_field :age %>
+  </div>
+  <div>
+    <%= form.label :track_id %>
+    <% if current_user.admin? %>
+      <%= form.collection_select :track_id, Track.all, :id, :name %>
+    <% else %>
+      <%= form.collection_select :track_id, current_user.tracks, :id, :name %>
+    <% end %>
+  </div>
+  <div>
+    <%= form.submit 'Update Student' %>
+  </div>
+<% end %>
+<br>
+<%= link_to 'Back', students_path %>

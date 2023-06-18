@@ -1,0 +1,28 @@
+<h1>All Tracks</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tracks.each do |track| %>
+      <% if current_user.admin? || current_user.tracks.include?(track) %>
+        <tr>
+          <td><%= track.name %></td>
+          <td><%= track.description %></td>
+          <td><%= link_to 'Show', track %></td>
+          <% if current_user.admin? %>
+            <td><%= link_to 'Edit', edit_track_path(track) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<% if current_user.admin? %>
+  <%= link_to 'New Track', new_track_path %>
+<% end %>
